@@ -1,22 +1,34 @@
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
+# require 'mina/nginx'
+# require 'mina/unicorn'
 # require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
-# require 'mina/rvm'    # for rvm support. (http://rvm.io)
-
+require 'mina/rvm'    # for rvm support. (http://rvm.io)
 # Basic settings:
 #   domain       - The hostname to SSH to.
 #   deploy_to    - Path to deploy into.
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
+set :app, 'footy'
+set :user, 'vagrant'    # Username in the server to SSH to.
+set :domain, 'moonlight.vps.com'
+set :ssh_options, '-A'
+set :port, '22'
+set :term_mode, nil
 
-set :domain, 'foobar.com'
-set :deploy_to, '/var/www/foobar.com'
-set :repository, 'git://...'
+set :deploy_to, '/home/vagrant/footy'
+set :repository, 'https://github.com/tungpt247/footy.git'
 set :branch, 'master'
 
+# ruby and rails stuff
+set :rails_env,       'production'
+set :rvm_path,        "/usr/local/rvm/bin/rvm"
+
+# set :identity_file, '/Users/tungphan/2015/my-projects/chef/moonlight/.kitchen/kitchen-vagrant/kitchen-moonlight-moonlight-ubuntu-1204/.vagrant/machines/default/virtualbox/private_key'
+# set :rsync_options,   ["-e ssh -i #{identity_file}", "--recursive", "--delete", "--delete-excluded"]
 # For system-wide RVM install.
-#   set :rvm_path, '/usr/local/rvm/bin/rvm'
+set :rvm_path, '/usr/local/rvm/bin/rvm'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
@@ -25,7 +37,7 @@ set :shared_paths, ['config/database.yml', 'log']
 # Optional settings:
 #   set :user, 'foobar'    # Username in the server to SSH to.
 #   set :port, '30000'     # SSH port number.
-#   set :forward_agent, true     # SSH forward_agent.
+  # set :forward_agent, true     # SSH forward_agent.
 
 # This task is the environment that is loaded for most commands, such as
 # `mina deploy` or `mina rake`.
@@ -67,6 +79,7 @@ task :deploy => :environment do
     to :launch do
       queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
+      # invoke :'unicorn:restart'
     end
   end
 end
