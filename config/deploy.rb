@@ -10,6 +10,9 @@ require 'mina/rvm'    # for rvm support. (http://rvm.io)
 #   deploy_to    - Path to deploy into.
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
+# set :default_shell, '/bin/bash -l'
+set :default_shell, '/bin/bash --login'
+
 set :app, 'footy'
 set :user, 'vagrant'    # Username in the server to SSH to.
 set :domain, 'moonlight.vps.com'
@@ -28,7 +31,6 @@ set :rvm_path,        "/usr/local/rvm/bin/rvm"
 # set :identity_file, '/Users/tungphan/2015/my-projects/chef/moonlight/.kitchen/kitchen-vagrant/kitchen-moonlight-moonlight-ubuntu-1204/.vagrant/machines/default/virtualbox/private_key'
 # set :rsync_options,   ["-e ssh -i #{identity_file}", "--recursive", "--delete", "--delete-excluded"]
 # For system-wide RVM install.
-set :rvm_path, '/usr/local/rvm/bin/rvm'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
@@ -47,7 +49,7 @@ task :environment do
   # invoke :'rbenv:load'
 
   # For those using RVM, use this to load an RVM version@gemset.
-  invoke :'rvm:use[ruby-2.2.0@default]'
+  # invoke :'rvm:use[ruby-2.2.0@default]'
 end
 
 # Put any custom mkdir's in here for when `mina setup` is ran.
@@ -78,8 +80,8 @@ task :deploy => :environment do
 
     to :launch do
       queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
-      queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
-      # invoke :'unicorn:restart'
+      # queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
+      invoke :'unicorn:restart'
     end
   end
 end
