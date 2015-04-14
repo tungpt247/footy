@@ -35,6 +35,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development do
   # use mina to deploy
   gem 'mina'
+  gem 'mina-nginx', :require => false
+  gem 'mina-unicorn', :require => false
 
   # convert erb to slim template
   gem  'html2slim'

@@ -1,8 +1,8 @@
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
-# require 'mina/nginx'
-# require 'mina/unicorn'
+require 'mina/nginx'
+require 'mina/unicorn'
 # require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
 require 'mina/rvm'    # for rvm support. (http://rvm.io)
 # Basic settings:
@@ -19,7 +19,7 @@ set :term_mode, nil
 
 set :deploy_to, '/home/vagrant/footy'
 set :repository, 'https://github.com/tungpt247/footy.git'
-set :branch, 'master'
+set :branch, 'develop'
 
 # ruby and rails stuff
 set :rails_env,       'production'
@@ -47,7 +47,7 @@ task :environment do
   # invoke :'rbenv:load'
 
   # For those using RVM, use this to load an RVM version@gemset.
-  # invoke :'rvm:use[ruby-1.9.3-p125@default]'
+  invoke :'rvm:use[ruby-2.2.0@default]'
 end
 
 # Put any custom mkdir's in here for when `mina setup` is ran.
