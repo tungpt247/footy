@@ -15,7 +15,7 @@ set :user, 'vagrant'    # Username in the server to SSH to.
 set :domain, 'moonlight.vps.com'
 set :ssh_options, '-A'
 set :port, '22'
-set :term_mode, nil
+set :term_mode, nil # IMPORTANT hacking for frozen passwork enter
 
 set :deploy_to, '/home/vagrant/footy'
 set :repository, 'https://github.com/tungpt247/footy.git'
