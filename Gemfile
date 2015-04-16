@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 gem 'dotenv-rails'
@@ -30,11 +29,16 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 group :development do
   # use mina to deploy
   gem 'mina'
+  gem 'mina-nginx', :require => false
+  gem 'mina-unicorn', :require => false
+  gem 'mina-multistage', require: false
+  gem 'god', :require => false
+  gem 'mina-rsync'
 
   # convert erb to slim template
   gem  'html2slim'
