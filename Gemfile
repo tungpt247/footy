@@ -36,6 +36,9 @@ group :development do
   gem 'mina'
   gem 'mina-nginx', :require => false
   gem 'mina-unicorn', :require => false
+  gem 'mina-multistage', require: false
+  gem 'god', :require => false
+  gem 'mina-rsync'
 
   # convert erb to slim template
   gem  'html2slim'
