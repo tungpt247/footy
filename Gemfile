@@ -4,13 +4,14 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.1'
 gem 'dotenv-rails', '~> 2.0.1'
 gem 'pg', '~> 0.18.1'
+
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.4.1'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'slim-rails', '~> 3.0.1'
 
-# ui
+# wysihtml ui
 gem 'bootstrap-wysihtml5-rails', '~> 0.3.3.6'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -36,6 +37,8 @@ gem 'daemons', '~> 1.2.2'
 gem 'delayed_job_active_record', '~> 4.0.3'
 gem 'whenever', '~> 0.9.4', :require => false
 
+gem 'mini_magick'
+
 group :development do
   # use mina deploy
   gem 'mina', '~> 0.3.4'
@@ -43,7 +46,7 @@ group :development do
   gem 'mina-unicorn', :require => false
   gem 'mina-multistage', require: false
   gem 'mina-delayed_job', '~> 0.0.1', require: false
-  gem 'mina-rsync'
+  gem 'mina-rsync', :require => false
   gem 'god', :require => false
 
   # convert erb to slim template
