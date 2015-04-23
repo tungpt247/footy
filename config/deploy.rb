@@ -14,11 +14,14 @@ require 'mina/nginx'
 require 'mina/unicorn'
 
 require 'mina/delayed_job'
+require 'mina/whenever'
 
 Dir['lib/mina/servers/*.rb'].each { |f| load f }
 
 # app name
 set :app, 'footy'
+
+set :default_shell, '/bin/bash --login'
 
 # mina stuffs
 set :server, ENV['on'] || 'staging'
@@ -31,11 +34,7 @@ set :branch, "develop"
 
 # For system-wide RVM install.
 set :rvm_path, '/usr/local/rvm/bin/rvm'
-
-# set default for delay job
-set :delayed_job, lambda { "bin/delayed_job" }
-set :delayed_job_pid_dir, lambda { "#{deploy_to}/#{shared_path}/pids" }
-set :delayed_job_processes, 1
+set :rvm_ruby_string, 'ruby-2.2.0'
 
 # set :term_mode, nil
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
@@ -58,6 +57,14 @@ set :rsync_options, %w[
   --exclude /lib/mina
 ]
 
+# load delayedjob configs
+Dir['lib/mina/delayedjob.rb'].each { |f| load f }
+invoke :'delayedjob:configs'
+# # set default for delay job
+# set :delayed_job, lambda { "bin/delayed_job" }
+# set :delayed_job_pid_dir, lambda { "#{deploy_to}/#{shared_path}/pids" }
+# set :delayed_job_processes, 1
+
 # This task is the environment that is loaded for most commands, such as
 # `mina deploy` or `mina rake`.
 task :environment do
@@ -72,7 +79,7 @@ end
 
 desc "Setup server."
 task :setup => :environment do
-  queue! %[sudo chown -R vagrant "#{deploy_to}"]
+  queue! %[sudo chown -R #{fetch(:user)} "#{deploy_to}"]
   queue! %[mkdir -p "#{deploy_to}/#{shared_path}/log"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/log"]
 
@@ -103,7 +110,8 @@ task :deploy => :environment do
     to :launch do
       invoke :'unicorn:stop'
       invoke :'unicorn:start'
-      invoke :'delayed_job:restart'
+      # invoke :'delayed_job:restart' if you want hardcode
+      invoke :'whenever:update'
     end
   end
 end

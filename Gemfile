@@ -34,6 +34,7 @@ gem 'unicorn', '~> 4.8.3'
 # Background job for active record
 gem 'daemons', '~> 1.2.2'
 gem 'delayed_job_active_record', '~> 4.0.3'
+gem 'whenever', '~> 0.9.4'
 
 group :development do
   # use mina deploy
