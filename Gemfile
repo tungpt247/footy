@@ -32,6 +32,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'unicorn', '~> 4.8.3'
 
 # Background job for active record
+gem 'daemons', '~> 1.2.2'
 gem 'delayed_job_active_record', '~> 4.0.3'
 
 group :development do

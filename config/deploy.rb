@@ -72,15 +72,15 @@ end
 
 desc "Setup server."
 task :setup => :environment do
-  # queue! %[sudo chown -R vagrant "#{deploy_to}"]
-  # queue! %[mkdir -p "#{deploy_to}/#{shared_path}/log"]
-  # queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/log"]
+  queue! %[sudo chown -R vagrant "#{deploy_to}"]
+  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/log"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/log"]
 
-  # queue! %[mkdir -p "#{deploy_to}/#{shared_path}/deploy"]
-  # queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/deploy"]
+  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/deploy"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/deploy"]
 
-  # queue! %[mkdir -p "#{deploy_to}/#{shared_path}/config"]
-  # queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/config"]
+  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/config"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/config"]
 
    # delayed_job needs a place to store its pid file
   invoke :'delayed_job:setup'
@@ -93,8 +93,8 @@ task :deploy => :environment do
     # queue! "/bin/bash --login"
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
-    # invoke :'git:clone'
-    invoke :'rsync:deploy' # for develop
+    invoke :'git:clone'
+    # invoke :'rsync:deploy' # for develop
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
