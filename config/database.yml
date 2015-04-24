@@ -7,10 +7,13 @@ development:
   <<: *default
   database: db/footy_dev
 
-test:
+test: &test
   <<: *default
   database: db/footy_test
 
 production:
   <<: *default
   database: db/footy_prod
+
+cucumber:
+  <<: *test

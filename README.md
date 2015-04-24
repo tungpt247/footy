@@ -1,9 +1,9 @@
 #Setup environment
 	Requirements
 	  Rails version: 4.2.0
-  
+
 	  Ruby version: 2.2.0
-  
+
 	  Postgres database version: 9.4.0
 
 ###Create rails app
@@ -11,7 +11,7 @@
 
 
 ###Config Rspec
-  
+
 	$ bundle exec rails generate rspec:install
 
 ###Config Guard
@@ -53,7 +53,7 @@ Register Capybara driver :poltergeist in features/support/env.rb
 
 ###Automation testing
 Run just cucumber
-  
+
 	$ bundle exec cucumber features/
 
 Run just rspec
@@ -72,10 +72,7 @@ To monitor tests running
 
 ###Integation testing with Travis CI
 
-
-
 #Setup on Heroku
-
 
 #### Setting environment on Heroku intead commit .env file
   $ heroku config:set SAYNEWS_DATABASE_PASSWORD=xxx --app liveinfo
@@ -89,7 +86,7 @@ bundle install --binstubs
 
 
 
-	
+
 #Mina deploy
 env = staging | production
 
@@ -99,7 +96,7 @@ Setup
 
 Delpoy
 
-	$ mina deploy on=env 
+	$ mina deploy on=env
 
 
 
@@ -108,6 +105,6 @@ Delpoy
 Removes the deploy lock file.
 
 	$ mina deploy:force_unlock
-	
 
-	
+
+

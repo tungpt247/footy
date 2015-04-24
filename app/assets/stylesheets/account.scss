@@ -1,0 +1,26 @@
+.user_remember_me {
+  margin-left: 5px;
+}
+@media (min-width: 992px) {
+  .session-message {
+    margin: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .session-message {
+    padding-left: 40px;
+    border-left: 2px solid #e6e6e6;
+  }
+}
+.field_with_errors {
+  background-color: green!important;
+  padding: 0!important;
+  display: inherit!important;
+  .form-control {
+    border:1px solid #AF2D03!important;
+  }
+}
+#error_explanation {
+  display:none!important;
+}

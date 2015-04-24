@@ -1,18 +1,17 @@
-= form_for @post do |f|
+= simple_form_for(@post) do |f|
   - if @post.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@post.errors.count, "error")} prohibited this post from being saved:"
+      h2
+        = pluralize(@post.errors.count, "error")
+        |  prohibited this post from being saved:
       ul
         - @post.errors.full_messages.each do |message|
-          li = message
-
-  .field
-    = f.label :name
-    = f.text_field :name
+          li
+            = message
   .field
     = f.label :title
     = f.text_field :title
   .field
-    = f.label :content
-    = f.text_area :content
+    =  f.label :content
+    = f.text_area :content, as: :wysihtml5, :class => "wysihtml5"
   .actions = f.submit

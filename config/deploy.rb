@@ -36,6 +36,9 @@ set :branch, "develop"
 set :rvm_path, '/usr/local/rvm/bin/rvm'
 set :rvm_ruby_string, 'ruby-2.2.0'
 
+set :bundle_binstubs, nil
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+
 # set :term_mode, nil
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
@@ -67,6 +70,7 @@ invoke :'delayedjob:configs'
 
 # This task is the environment that is loaded for most commands, such as
 # `mina deploy` or `mina rake`.
+#
 task :environment do
   # For those using RVM, use this to load an RVM version@gemset.
   # version = "#{File.readlines('.ruby-version').first.strip}@#{File.readlines('.ruby-gemset').first.strip}"
